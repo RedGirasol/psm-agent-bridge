@@ -39,4 +39,13 @@ final class ClaudeAgentDriverTest extends TestCase
         $this->assertSame('0.12', $response->costUsd);
         $this->assertSame('claude-sonnet-4', $response->model);
     }
+
+    public function test_it_lists_the_known_verified_models(): void
+    {
+        $driver = new ClaudeAgentDriver();
+
+        $slugs = array_column($driver->availableModels(), 'slug');
+
+        $this->assertSame(['claude-opus-5', 'claude-sonnet-5', 'claude-haiku-4-5'], $slugs);
+    }
 }

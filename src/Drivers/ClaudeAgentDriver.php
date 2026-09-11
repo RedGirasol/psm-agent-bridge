@@ -54,13 +54,33 @@ class ClaudeAgentDriver implements AgentDriver
     }
 
     /**
-     * El SDK de Claude no expone un catálogo de modelos: no hay de dónde
-     * leerlo, a diferencia de `models_cache.json` en Codex.
+     * El CLI de Claude no tiene un `models_cache.json` como Codex: no hay
+     * archivo que leer. Esta lista salió de probar cada alias contra el CLI
+     * real (`claude -p --model <alias> --output-format json`) y leer el
+     * `canonicalModel` que devolvió para esta cuenta — no es una lista
+     * inventada, pero tampoco se refresca sola: si Anthropic cambia los
+     * nombres, hay que volver a correr esa prueba y actualizar esta lista.
      *
      * @return list<array{slug: string, display_name: string, description: string}>
      */
     public function availableModels(): array
     {
-        return [];
+        return [
+            [
+                'slug' => 'claude-opus-5',
+                'display_name' => 'Claude Opus 5',
+                'description' => 'El más capaz; mayor costo y latencia.',
+            ],
+            [
+                'slug' => 'claude-sonnet-5',
+                'display_name' => 'Claude Sonnet 5',
+                'description' => 'Balance entre capacidad y costo; el default habitual.',
+            ],
+            [
+                'slug' => 'claude-haiku-4-5',
+                'display_name' => 'Claude Haiku 4.5',
+                'description' => 'El más rápido y económico; menos profundidad de razonamiento.',
+            ],
+        ];
     }
 }
