@@ -52,4 +52,15 @@ class ClaudeAgentDriver implements AgentDriver
 
         return AgentResponse::fromEvents($events);
     }
+
+    /**
+     * El SDK de Claude no expone un catálogo de modelos: no hay de dónde
+     * leerlo, a diferencia de `models_cache.json` en Codex.
+     *
+     * @return list<array{slug: string, display_name: string, description: string}>
+     */
+    public function availableModels(): array
+    {
+        return [];
+    }
 }

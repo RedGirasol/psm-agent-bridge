@@ -28,6 +28,11 @@ class AgentManager extends Manager
                     'stream' => $request->stream,
                 ]);
             }
+
+            public function availableModels(): array
+            {
+                return [];
+            }
         };
     }
 

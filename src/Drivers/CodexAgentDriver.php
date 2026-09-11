@@ -8,6 +8,7 @@ use AgentBridge\AgentDriver;
 use AgentBridge\AgentRequest;
 use AgentBridge\AgentResponse;
 use CodexAgent\Client;
+use CodexAgent\Models;
 use CodexAgent\Options;
 
 class CodexAgentDriver implements AgentDriver
@@ -54,6 +55,14 @@ class CodexAgentDriver implements AgentDriver
         }
 
         return AgentResponse::fromEvents($events);
+    }
+
+    /**
+     * @return list<array{slug: string, display_name: string, description: string}>
+     */
+    public function availableModels(): array
+    {
+        return Models::available();
     }
 
     private function sandboxFor(AgentRequest $request): string

@@ -38,4 +38,28 @@ final class CodexAgentDriverTest extends TestCase
         $this->assertSame('codex-session', $response->sessionId);
         $this->assertNull($response->costUsd);
     }
+
+    public function test_it_reads_available_models_from_the_cli_cache(): void
+    {
+        $home = sys_get_temp_dir().'/codex-driver-test-'.uniqid();
+        mkdir($home, 0777, true);
+        file_put_contents($home.'/models_cache.json', json_encode([
+            'models' => [
+                ['slug' => 'gpt-5.6-sol', 'display_name' => 'GPT-5.6-Sol', 'description' => 'Workhorse.'],
+            ],
+        ]));
+
+        putenv('CODEX_HOME='.$home);
+
+        try {
+            $driver = new CodexAgentDriver();
+            $models = $driver->availableModels();
+        } finally {
+            putenv('CODEX_HOME');
+            @unlink($home.'/models_cache.json');
+            @rmdir($home);
+        }
+
+        $this->assertSame([['slug' => 'gpt-5.6-sol', 'display_name' => 'GPT-5.6-Sol', 'description' => 'Workhorse.']], $models);
+    }
 }

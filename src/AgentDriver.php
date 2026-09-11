@@ -19,4 +19,12 @@ interface AgentDriver
      * @param (callable(?int): void)|null $onPid
      */
     public function run(AgentRequest $request, ?callable $onEvent = null, ?callable $onPid = null): AgentResponse;
+
+    /**
+     * Lista de modelos válidos para este driver, si el CLI la expone. Vacía
+     * significa "no se pudo determinar" — no "ningún modelo es válido".
+     *
+     * @return list<array{slug: string, display_name: string, description: string}>
+     */
+    public function availableModels(): array;
 }
