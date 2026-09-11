@@ -1,0 +1,58 @@
+{
+  "$schema": "https://getcomposer.org/schema.json",
+  "name": "icdev/agent-runner-bridge",
+  "description": "Laravel bridge for multi-provider agent execution",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ichavezrg",
+      "email": "ichavezrg@example.com"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "icdev/claude-agent-sdk-php": "@dev",
+    "icdev/codex-agent-sdk-php": "@dev",
+    "illuminate/support": "^12.0 || ^13.0",
+    "illuminate/container": "^12.0 || ^13.0"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../codex-agent-sdk-php",
+      "options": {
+        "symlink": false
+      }
+    },
+    {
+      "type": "path",
+      "url": "../psm-web/vendor/icdev/claude-agent-sdk-php",
+      "options": {
+        "symlink": false
+      }
+    }
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^12.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "AgentBridge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AgentBridge\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AgentBridge\\AgentBridgeServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
