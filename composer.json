@@ -19,18 +19,8 @@
   },
   "repositories": [
     {
-      "type": "path",
-      "url": "../codex-agent-sdk-php",
-      "options": {
-        "symlink": false
-      }
-    },
-    {
-      "type": "path",
-      "url": "../psm-web/vendor/icdev/claude-agent-sdk-php",
-      "options": {
-        "symlink": false
-      }
+      "type": "vcs",
+      "url": "https://github.com/ichavezrg/codex-agent-sdk-php.git"
     }
   ],
   "require-dev": {
