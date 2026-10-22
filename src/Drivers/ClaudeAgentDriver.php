@@ -22,22 +22,7 @@ class ClaudeAgentDriver implements AgentDriver
 
     public function run(AgentRequest $request, ?callable $onEvent = null, ?callable $onPid = null): AgentResponse
     {
-        $client = ($this->clientFactory ?? fn (AgentRequest $request): object => new Client(new Options(
-            model: $request->model,
-            systemPrompt: $request->systemPrompt,
-            appendSystemPrompt: $request->appendSystemPrompt,
-            allowedTools: $request->allowedTools,
-            disallowedTools: $request->disallowedTools,
-            permissionMode: $request->permissionMode,
-            maxTurns: $request->maxTurns,
-            maxBudgetUsd: $request->maxBudgetUsd,
-            cwd: $request->cwd,
-            addDirs: $request->addDirs,
-            env: $request->env,
-            thinking: $request->thinking,
-            resume: $request->resume,
-            settings: $request->settings,
-        )) )($request);
+        $client = ($this->clientFactory ?? fn (AgentRequest $request): object => new Client($this->options($request)))($request);
 
         $events = [];
 
@@ -51,6 +36,31 @@ class ClaudeAgentDriver implements AgentDriver
         }
 
         return AgentResponse::fromEvents($events);
+    }
+
+    /**
+     * Cómo se traduce una petición del bridge a las opciones del SDK de Claude.
+     */
+    public function options(AgentRequest $request): Options
+    {
+        return new Options(
+            model: $request->model,
+            systemPrompt: $request->systemPrompt,
+            appendSystemPrompt: $request->appendSystemPrompt,
+            allowedTools: $request->allowedTools,
+            disallowedTools: $request->disallowedTools,
+            permissionMode: $request->permissionMode,
+            maxTurns: $request->maxTurns,
+            maxBudgetUsd: $request->maxBudgetUsd,
+            cwd: $request->cwd,
+            addDirs: $request->addDirs,
+            env: $request->env,
+            thinking: $request->thinking,
+            resume: $request->resume,
+            mcpServers: $request->mcpServers,
+            settings: $request->settings,
+            cliPath: $request->cliPath,
+        );
     }
 
     /**

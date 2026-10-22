@@ -23,6 +23,11 @@ final class AgentRequest
     * @param string|null $settings
     * @param string|null $appendSystemPrompt
      * @param bool $stream
+     * @param array<string, array<string, mixed>> $mcpServers Servidores MCP de la corrida, con la forma de `--mcp-config`
+     *        (`['pms' => ['type' => 'stdio', 'command' => ..., 'args' => [...]]]`). Por ahora solo el driver de Claude
+     *        los entrega; el de Codex los ignora.
+     * @param string|null $cliPath Binario del CLI a lanzar en lugar del que se encuentre en el PATH. Por ahora solo
+     *        el driver de Claude lo usa.
      */
     public function __construct(
         public readonly string $prompt,
@@ -41,6 +46,8 @@ final class AgentRequest
         public readonly ?string $settings = null,
         public readonly ?string $appendSystemPrompt = null,
         public readonly bool $stream = true,
+        public readonly array $mcpServers = [],
+        public readonly ?string $cliPath = null,
     ) {
     }
 }
