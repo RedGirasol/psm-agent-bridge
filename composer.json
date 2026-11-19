@@ -20,7 +20,11 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/ichavezrg/codex-agent-sdk-php.git"
+      "url": "https://github.com/RedGirasol/codex-agent-sdk-php.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/RedGirasol/claude-agent-sdk-php.git"
     }
   ],
   "require-dev": {
